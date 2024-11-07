@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Looping Testimonial Slider</title>
+    <style>
+        /* Basic styling */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f4f8;
+        }
+
+        .slider-container {
+            max-width: 600px;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .slides-wrapper {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .slide {
+            min-width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 20px;
+            box-sizing: border-box;
+            background: #fff;
+        }
+
+        .profile-pic {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+
+        .review-content {
+            text-align: left;
+        }
+
+        .review-text {
+            font-style: italic;
+            color: #333;
+            margin: 0 0 5px;
+        }
+
+        .star-rating {
+            color: #ffcc00;
+            margin-bottom: 5px;
+        }
+
+        .author-name {
+            font-weight: bold;
+            color: #333;
+            margin-top: 5px;
+        }
+
+        /* Dots navigation */
+        .dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            background-color: #ccc;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .dot.active {
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="slider-container">
+    <div class="slides-wrapper">
+        <div class="slide">
+            <img src="Afzal-cheema.jpg" alt="Profile Picture" class="profile-pic">
+            <div class="review-content">
+                <p class="review-text">"Ich konnte mich endlich von den Pickelchen & eingewachsenen Haaren verabschieden!"</p>
+                <div class="star-rating">&#9733; &#9733; &#9733; &#9733; &#9733;</div>
+                <p class="author-name">Anke W.</p>
+            </div>
+        </div>
+        <div class="slide">
+            <img src="Afzal-cheema.jpg" alt="Profile Picture" class="profile-pic">
+            <div class="review-content">
+                <p class="review-text">"Tolles Produkt, hat meine Haut verbessert!"</p>
+                <div class="star-rating">&#9733; &#9733; &#9733; &#9733; &#9733;</div>
+                <p class="author-name">Julia K.</p>
+            </div>
+        </div>
+        <div class="slide">
+            <img src="Afzal-cheema.jpg" alt="Profile Picture" class="profile-pic">
+            <div class="review-content">
+                <p class="review-text">"Ich bin so froh, dass ich dieses Produkt gefunden habe."</p>
+                <div class="star-rating">&#9733; &#9733; &#9733; &#9733; &#9733;</div>
+                <p class="author-name">Max M.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="dots">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+    </div>
+</div>
+
+<script>
+    const slidesWrapper = document.querySelector('.slides-wrapper');
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+    let currentIndex = 0;
+
+    // Function to move the slides
+    function moveToSlide(index) {
+        slidesWrapper.style.transform = `translateX(-${index * 100}%)`;
+        updateDots(index);
+    }
+
+    // Update active dot
+    function updateDots(index) {
+        dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === index);
+        });
+    }
+
+    // Set up dot navigation
+    dots.forEach((dot, i) => {
+        dot.addEventListener('click', () => {
+            currentIndex = i;
+            moveToSlide(currentIndex);
+        });
+    });
+
+    // Auto-slide functionality with loop
+    setInterval(() => {
+        currentIndex = (currentIndex + 1) % slides.length;
+        moveToSlide(currentIndex);
+    }, 5000); // Change slide every 5 seconds
+</script>
+
+</body>
+</html>
